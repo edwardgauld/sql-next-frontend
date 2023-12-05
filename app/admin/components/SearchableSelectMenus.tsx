@@ -162,7 +162,7 @@ function MultiSelect({ options, title, selectedOptions, onChange }: MultiSelectP
 interface CombinedMenuProps {
   singleOptions: Option[];
   multiOptions: string[];
-  selectedSingle: Option; // Add this line
+  selectedSingle: Option | null; // Add this line
   onSingleSelectChange: (selected: Option) => void;
 }
 
@@ -180,11 +180,11 @@ function CombinedMenu({
   }, [newSelectedMulti]);
 
   const filteredSingleOptions =
-    selectedMulti.length > 0
-      ? singleOptions.filter((option) =>
-          selectedMulti.every((skill) => option.skills.includes(skill))
-        )
-      : singleOptions;
+  selectedMulti.length > 0
+    ? singleOptions.filter((option) =>
+        selectedMulti.every((skill) => option.skills?.includes(skill))
+      )
+    : singleOptions;
 
   return (
     <nav className="p-6 w-full flex flex-col flex-wrap">
@@ -208,7 +208,7 @@ function CombinedMenu({
 
 
 interface QuestionPickerProps {
-  onQuestionChange: (selected) => void;
+  onQuestionChange: (selected: Option) => void;
   selectedQuestion: Option | null;
 }
 
@@ -232,8 +232,7 @@ export function QuestionPicker({ onQuestionChange, selectedQuestion }: QuestionP
     };
     getSkills();
   }, []);
-  console.log(skills);
-  console.log(questions);
+
   return (
     <CombinedMenu
       singleOptions={questions}
@@ -246,7 +245,7 @@ export function QuestionPicker({ onQuestionChange, selectedQuestion }: QuestionP
 
 
 interface LessonPickerProps {
-  onLessonChange: (selected) => void;
+  onLessonChange: (selected: Option) => void;
   selectedLesson: Option | null;
 }
 

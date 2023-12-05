@@ -18,7 +18,7 @@ export default function RootLayout({
       <body className={inter.className}>
       <div id="modal-root"></div>
         {children}
-      <script src="/preline.js"></script>
+      <script async src="/preline.js"></script>
       </body>
     </html>
   )

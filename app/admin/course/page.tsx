@@ -4,13 +4,14 @@ import DraggableList from '../components/DraggableList';
 import ModulePicker from '../components/ModulePicker';
 import { getCourseModules, getAllModules, updateCourseModules } from '@/app/api';
 import { Button } from '@/components/Buttons';
+import { ApiError } from '@/app/types';
 
 interface Module {
     id: string;
     name: string;
 }
 
-const page = () => {
+const Page = () => {
     // Define the types for modules and selectedModule
     const [courseModules, setCourseModules] = useState<Module[]>([]);
     const [allModules, setAllModules] = useState<Module[]>([]);
@@ -59,8 +60,9 @@ const page = () => {
       try {
         await updateCourseModules(moduleIds);
         alert('Course modules updated successfully');
-      } catch (error) {
-        alert(error.message || 'An error occurred while updating the course modules');
+      } catch (error: unknown) {
+        const apiError = error as ApiError;
+        alert(apiError.message || 'An error occurred while updating the course modules');
       }
     };
     
@@ -74,4 +76,4 @@ const page = () => {
     );
 }
 
-export default page;
+export default Page;

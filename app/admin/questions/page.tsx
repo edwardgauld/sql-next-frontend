@@ -18,14 +18,15 @@ export default function Page() {
   };
 
   const handleDeleteQuestion = () => {
-    // delete question logic
-    deleteQuestion(selectedQuestion.id);
-    setSelectedQuestion(null);
+    if (selectedQuestion) {
+      deleteQuestion(selectedQuestion.id);
+      setSelectedQuestion(null);
+    }
   };
 
   return (
     <div className="sm:flex flex-row">
-      <Sidebar title="Questions">
+      <Sidebar>
         <QuestionPicker
           selectedQuestion={selectedQuestion}
           onQuestionChange={handleSelectedQuestionChange}

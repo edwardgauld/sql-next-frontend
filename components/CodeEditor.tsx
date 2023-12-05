@@ -8,9 +8,12 @@ function CodeEditor(props: {
   content: string;
 }) {
   const handleChange = props.handleChange;
-  const onChange = React.useCallback((value: any, viewUpdate: any) => {
-    handleChange(value);
-  }, []);
+  const onChange = React.useCallback(
+    (value: any, viewUpdate: any) => {
+      handleChange(value);
+    },
+    [handleChange]
+  );
   let theme: 'light' | 'dark' = 'light'; // default to light theme
   if (typeof window !== 'undefined') {
     // now we know we're on the client side, it's safe to access window
@@ -20,7 +23,7 @@ function CodeEditor(props: {
   }
   return (
     <CodeMirror
-    className='rounded-lg'
+      className="rounded-lg"
       value={props.content}
       height="200px"
       theme={theme}

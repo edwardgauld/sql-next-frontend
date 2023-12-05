@@ -29,18 +29,19 @@ export default function Home() {
         </p>
         <p className="mb-4">
           When I was a beginner, I did not have enough knowledge to figure out
-          what was essential to know and what wasn't. I overconsumed and forgot
-          most of it because it was irrelevant.
+          what was essential to know and what wasn&apos;t. I overconsumed and
+          forgot most of it because it was irrelevant.
         </p>
         <p className="mb-4">
-          If you want to learn these other things, that's fine. There are great
-          resources for this, and you'll be in a good position after completing
-          this course. It's just not needed to write SQL.
+          If you want to learn these other things, that&apos;s fine. There are
+          great resources for this, and you&apos;ll be in a good position after
+          completing this course. It&apos;s just not needed to write SQL.
         </p>
         <h2 className="text-2xl font-bold mb-2">Practice is the only way</h2>
         <p className="mb-4">
-          You can't learn this skill by consuming tutorials, doesn't matter how
-          good they are. You have to actually write SQL to learn to write SQL.
+          You can&apos;t learn this skill by consuming tutorials, doesn&apos;t
+          matter how good they are. You have to actually write SQL to learn to
+          write SQL.
         </p>
         <p className="mb-4">
           So most of the course content is real practice questions. You can
@@ -54,28 +55,28 @@ export default function Home() {
         </p>
         <h2 className="text-2xl font-bold mb-2">Perfect ordering</h2>
         <p className="mb-4">
-          If I ask you to say "Go for a walk and buy those items" in a language
-          you don't know, you first need to know how to say "Go for a walk" and
-          "Buy those items" separately.
+          If I ask you to say &quot;Go for a walk and buy those items&quot; in a
+          language you don&apos;t know, you first need to know how to say
+          &quot;Go for a walk&quot; and &quot;Buy those items&quot; separately.
         </p>
         <p className="mb-4">
           There is no point in me asking you to say the whole sentence if you
-          don't know the components. All SQL questions can be broken down into
-          components that need to be solved, then combined together. If you
+          don&apos;t know the components. All SQL questions can be broken down
+          into components that need to be solved, then combined together. If you
           understand all the components, no question is truly hard because it
           can always be broken down to easy components.
         </p>
         <p className="mb-4">
-          If you can't solve an SQL question, it's because you either don't know
-          at least one of the components or you haven't practiced enough to
-          recognise when it is needed. That's all.
+          If you can&apos;t solve an SQL question, it&apos;s because you either
+          don&apos;t know at least one of the components or you haven&apos;t
+          practiced enough to recognise when it is needed. That&apos;s all.
         </p>
         <p className="mb-4">
           If you go though this course in order, you will learn each simple
           component separately, then have practice combining them. There will
           never be a point where you get stuck or frustrated because the
-          questions build on each other perfectly. Even the later "hard"
-          questions.
+          questions build on each other perfectly. Even the later
+          &quot;hard&quot; questions.
         </p>
         <h2 className="text-2xl font-bold mb-2">Instructions:</h2>
         <p className="mb-4">

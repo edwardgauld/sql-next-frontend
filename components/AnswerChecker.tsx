@@ -10,7 +10,20 @@ import {
   WrongOutput
 } from '@/components/OutputPanels';
 
-const reducer = (state, action) => {
+interface State {
+  query: string;
+  submissionId: string | null;
+  submissionStatus: string | null;
+  submissionOutput: string | null;
+}
+
+type Action =
+  | { type: 'SET_QUERY'; query: string }
+  | { type: 'SUBMIT'; submissionId: string }
+  | { type: 'SET_RESULT'; payload: { status: string; output: string } }
+  | { type: 'RESET' };
+
+const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case 'SET_QUERY':
       return {
@@ -77,7 +90,7 @@ const AnswerChecker: React.FC<AnswerCheckerProps> = ({
     if (!state.submissionId) return;
 
     const intervalId = setInterval(async () => {
-      const data = await getSubmissionResult(state.submissionId);
+      const data = await getSubmissionResult(state.submissionId as string);
 
       if (data.status !== 'pending') {
         clearInterval(intervalId);
@@ -103,14 +116,14 @@ const AnswerChecker: React.FC<AnswerCheckerProps> = ({
       />
       {expectedOutput != 'admin' && <ExpectedOutput output={expectedOutput} />}
       {state.submissionStatus == 'error' && (
-        <SqlError output={state.submissionOutput} />
+        <SqlError output={state.submissionOutput as string} />
       )}
       {state.submissionStatus == 'correct' && <Correct />}
       {state.submissionStatus == 'incorrect' && (
-        <WrongOutput output={state.submissionOutput} />
+        <WrongOutput output={state.submissionOutput as string} />
       )}
       {state.submissionStatus == 'admin' && (
-        <ExpectedOutput output={state.submissionOutput} />
+        <ExpectedOutput output={state.submissionOutput as string} />
       )}
     </div>
   );

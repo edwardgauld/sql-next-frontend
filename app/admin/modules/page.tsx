@@ -17,12 +17,14 @@ import { InputText } from '../components/InputText';
 import ModulePicker from '../components/ModulePicker';
 import { BasicCard } from '@/components/Cards';
 import Modal from '@/components/Modals';
+import { ApiError } from '@/app/types';
 
 // Define the type for a module item
 type ModuleItem = {
-  type: string;
+  type?: string;
   id: string;
   name?: string;
+  content: string;
 };
 
 // Define the props for the ModuleViewer component
@@ -151,8 +153,9 @@ const ModuleEditor: React.FC<ModuleEditorProps> = ({ module }) => {
     try {
       updateModuleLessons(module.id, lessonIds);
       alert('Lessons updated successfully');
-    } catch (error) {
-      alert(error.message || 'An error occurred while updating the lessons');
+    } catch (error: unknown) {
+      const apiError = error as ApiError;
+      alert(apiError.message || 'An error occurred while updating the lessons');
     }
   };
 
@@ -160,8 +163,9 @@ const ModuleEditor: React.FC<ModuleEditorProps> = ({ module }) => {
     try {
       deleteModule(module.id);
       alert('Module deleted successfully');
-    } catch (error) {
-      alert(error.message || 'An error occurred while deleting the module');
+    } catch (error: unknown) {
+      const apiError = error as ApiError;
+      alert(apiError.message || 'An error occurred while deleting the module');
     }
   };
 
@@ -210,8 +214,9 @@ const ModuleCreator = () => {
     try {
       await createModule({ name, description });
       alert('Module created successfully');
-    } catch (error) {
-      alert(error.message || 'An error occurred while creating the module');
+    } catch (error: unknown) {
+      const apiError = error as ApiError;
+      alert(apiError.message || 'An error occurred while creating the module');
     }
   };
 
@@ -233,7 +238,7 @@ const ModuleCreator = () => {
 };
 
 // The main component for the page
-const page = () => {
+const Page = () => {
   // State for the list of modules and the selected module ID
   const [modules, setModules] = useState<any[]>([]);
   const [selectedModuleId, setSelectedModuleId] = useState<string | null>(null);
@@ -333,4 +338,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -2,13 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { getLesson } from '@/app/api';
 import ContentRenderer from '../../../components/ContentRenderer';
+import { LessonType } from '@/app/types';
 
 interface LessonProps {
   id: string;
 }
 
 const LessonRenderer: React.FC<LessonProps> = ({ id }) => {
-  const [lesson, setLesson] = useState(null);
+  const [lesson, setLesson] = useState<LessonType | null>(null);
 
   useEffect(() => {
     async function fetchLesson() {

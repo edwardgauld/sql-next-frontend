@@ -18,7 +18,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ children }) => {
   return (
     <div
       id="menu"
-      className={`top-0 left-0 bottom-0 w-full sm:w-64 sm:h-screen bg-white border-r border-gray-200 pb-10 overflow-y-auto scrollbar-y dark:scrollbar-y dark:bg-gray-800 dark:border-gray-700 ${isHidden ? 'hidden' : ''}`}
+      className={`top-0 left-0 bottom-0 w-full sm:w-64 sm:h-screen bg-white border-r border-gray-200 pb-10 overflow-y-auto scrollbar-y dark:scrollbar-y dark:bg-gray-800 dark:border-gray-700 ${
+        isHidden ? 'hidden' : ''
+      }`}
     >
       <nav className="pl-2 pt-2 w-full flex flex-col flex-wrap">{children}</nav>
     </div>
@@ -37,16 +39,16 @@ export const SidebarToggle: React.FC = () => {
 
   const toggleMenu = () => {
     const menu = document.getElementById('menu');
-    menu.classList.toggle('hidden');
-    setIsOpen(!isOpen);
-    localStorage.setItem('sidebarState', JSON.stringify(!isOpen));
+    if (menu) {
+      menu.classList.toggle('hidden');
+      setIsOpen(!isOpen);
+      localStorage.setItem('sidebarState', JSON.stringify(!isOpen));
+    }
   };
 
   return (
     <>
-      <details
-        className="group [&_summary::-webkit-details-marker]:hidden"
-      >
+      <details className="group [&_summary::-webkit-details-marker]:hidden">
         <summary
           className="flex sm:w-64 cursor-pointer items-center justify-between px-4 py-2 text-gray-500 dark:text-white hover:bg-gray-100 hover:text-gray-700 dark:hover:text-white dark:hover:bg-gray-700"
           onClick={toggleMenu}

@@ -1,4 +1,13 @@
-import { QuestionType, LessonType, ModuleType } from "./types";
+import { 
+  QuestionBriefInfo, 
+  QuestionType, 
+  LessonType, 
+  ModuleType, 
+  SkillType, 
+  CreateLessonType, 
+  CreateModuleType, 
+  CreateQuestionType 
+} from "./types";
 
 const API = "http://127.0.0.1:8001";
 
@@ -69,14 +78,14 @@ export const getSubmissionResult = async (submission_id: string) => {
 
 /* Admin API */
 
-export const createQuestion = async (data: QuestionType) => {
+export const createQuestion = async (data: CreateQuestionType) => {
   return fetchAPI(`/question/`, {
     method: "POST",
     body: JSON.stringify(data),
   });
 };
 
-export const updateQuestion = async (id: string, data: QuestionType) => {
+export const updateQuestion = async (id: string, data: CreateQuestionType) => {
   return fetchAPI(`/question/${id}`, {
     method: "PUT",
     body: JSON.stringify(data),
@@ -97,7 +106,7 @@ export const deleteQuestion = async (id: string) => {
   });
 };
 
-export const getAllSkills = async (): Promise<Array<Skill>> => {
+export const getAllSkills = async (): Promise<SkillType[]> => {
   return fetchAPI(`/skill`);
 };
 
@@ -110,7 +119,7 @@ export const getAllModulesNamesIds = async () => {
 
 };
 
-export const createModule = async (data: ModuleType) => {
+export const createModule = async (data: CreateModuleType) => {
   return fetchAPI(`/module/`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -132,7 +141,7 @@ export const getAllLessons = async () => {
   return fetchAPI(`/lesson`);
 }
 
-export const createLesson = async (data: LessonType): Promise<LessonType> => {
+export const createLesson = async (data: CreateLessonType): Promise<LessonType> => {
   return fetchAPI(`/lesson/`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -149,7 +158,7 @@ export const updateLesson = async (id: string, data: LessonType): Promise<Lesson
 export const getLesson = async (id: string): Promise<LessonType> => {
   let lesson = await fetchAPI(`/lesson/${id}`);
   // ensure all question ids are strings
-  lesson.questions = lesson.questions.map(question => {
+  lesson.questions = lesson.questions.map((question: QuestionBriefInfo) => {
     return { ...question, id: String(question.id) };
   })
   return lesson;

@@ -16,13 +16,15 @@ export default function Page() {
   };
 
   const handleDeleteLesson = () => {
-    deleteLesson(selectedLesson.id);
-    setSelectedLesson(null);
+    if (selectedLesson) {
+      deleteLesson(selectedLesson.id);
+      setSelectedLesson(null);
+    }
   };
 
   return (
     <div className="sm:flex flex-row">
-      <Sidebar title="Lessons">
+      <Sidebar>
         <LessonPicker
           selectedLesson={selectedLesson}
           onLessonChange={handleSelectedLessonChange}

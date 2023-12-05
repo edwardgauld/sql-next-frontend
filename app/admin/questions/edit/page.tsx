@@ -7,6 +7,7 @@ import { Button } from '@/components/Buttons';
 import { getQuestion, updateQuestion } from '@/app/api';
 import { QuestionType } from '@/app/types';
 import AnswerChecker from '@/components/AnswerChecker';
+import { ApiError } from '@/app/types';
 
 interface PageProps {
   searchParams: {
@@ -20,7 +21,7 @@ const Page: React.FC<PageProps> = ({ searchParams: { id } }) => {
     null
   );
 
-  const reducer = (state, action) => {
+  const reducer = (state: any, action: any) => {
     switch (action.type) {
       case 'SET_STATE':
         const newState = { ...state, ...action.payload };
@@ -55,13 +56,13 @@ const Page: React.FC<PageProps> = ({ searchParams: { id } }) => {
     };
 
     fetchQuestion();
-  }, [id]);
+  }, [id, LOCAL_STORAGE_ID]);
 
-  const handleContentChange = (content) =>
+  const handleContentChange = (content: string) =>
     dispatch({ type: 'SET_STATE', payload: { content } });
-  const handleSolutionChange = (solution) =>
+  const handleSolutionChange = (solution: string) =>
     dispatch({ type: 'SET_STATE', payload: { solution } });
-  const handleSkillsChange = (skills) =>
+  const handleSkillsChange = (skills: string[]) =>
     dispatch({ type: 'SET_STATE', payload: { skills } });
 
   const handleSubmit = async () => {
@@ -70,8 +71,9 @@ const Page: React.FC<PageProps> = ({ searchParams: { id } }) => {
       dispatch({ type: 'SET_STATE', payload: updatedQuestion });
       setFetchedQuestion(updatedQuestion);
       alert('Question updated successfully');
-    } catch (error) {
-      alert(error.message || 'An error occurred while updating the question');
+    } catch (error: unknown) {
+      const apiError = error as ApiError;
+      alert(apiError.message || 'An error occurred while updating the question');
     }
   };
 

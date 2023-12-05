@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 interface ButtonProps {
   innerText: string;
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 export const Button: React.FC<ButtonProps> = ({ innerText, onClick }) => {

@@ -5,12 +5,19 @@ import { SkillsPicker } from '../../components/SearchableSelectMenus';
 import { Button } from '@/components/Buttons';
 import { createLesson } from '@/app/api';
 import { InputText } from '../../components/InputText';
+import { ApiError } from '@/app/types';
 
 const CONTENT_LOCAL_STORAGE_ID = 'lesson_create_content';
 const NAME_LOCAL_STORAGE_ID = 'lesson_create_name';
 const SKILLS_LOCAL_STORAGE_ID = 'lesson_create_skills';
 
-const reducer = (state, action) => {
+type State = {
+  content: string;
+  name: string;
+  skills: string[];
+};
+
+const reducer = (state: State, action: any) => {
   switch (action.type) {
     case 'SET_CONTENT':
       localStorage.setItem(CONTENT_LOCAL_STORAGE_ID, action.content);
@@ -34,7 +41,7 @@ const reducer = (state, action) => {
   }
 };
 
-const page = () => {
+const Page = () => {
   const [state, dispatch] = useReducer(reducer, {
     content:
       typeof window !== 'undefined'
@@ -57,7 +64,6 @@ const page = () => {
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: 'SET_NAME', name: event.target.value });
   };
-  
 
   const handleSkillsChange = (selectedSkills: string[]) => {
     dispatch({ type: 'SET_SKILLS', skills: selectedSkills });
@@ -68,8 +74,9 @@ const page = () => {
       await createLesson(state);
       dispatch({ type: 'RESET' });
       alert('Lesson created successfully');
-    } catch (error) {
-      alert(error.message || 'An error occurred while creating the lesson');
+    } catch (error: unknown) {
+      const apiError = error as ApiError;
+      alert(apiError.message || 'An error occurred while creating the lesson');
     }
   };
 
@@ -91,4 +98,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

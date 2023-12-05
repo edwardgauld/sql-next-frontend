@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { getQuestion } from '@/app/api';
+import { QuestionType } from '@/app/types';
 import ContentRenderer from '../../../components/ContentRenderer';
 
 interface QuestionProps {
@@ -8,7 +9,7 @@ interface QuestionProps {
 }
 
 const QuestionRenderer: React.FC<QuestionProps> = ({ id }) => {
-  const [question, setQuestion] = useState(null);
+  const [question, setQuestion] = useState<QuestionType | null>(null);
   useEffect(() => {
     async function fetchQuestion() {
       const data = await getQuestion(id);

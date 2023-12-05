@@ -8,6 +8,7 @@ import { InputText } from '../../components/InputText';
 import { LessonType, QuestionType, QuestionBriefInfo } from '@/app/types';
 import { QuestionPicker } from '../../components/SearchableSelectMenus';
 import DraggableList from '../../components/DraggableList';
+import { ApiError } from '@/app/types';
 
 // Define the props for the Page component
 interface PageProps {
@@ -29,11 +30,17 @@ const Page: React.FC<PageProps> = ({ searchParams: { id } }) => {
     null
   );
 
+  interface StateType {
+    content: string;
+    name: string;
+    skills: string[];
+    questions: QuestionBriefInfo[];
+  }
   // Define the reducer for handling state updates
   // When the 'SET_STATE' action is dispatched, the new state is first calculated,
   // then each part of the state is stored in local storage, and finally the new state is returned.
   // The 'RESET' action removes the items from local storage and returns the fetched lesson as the new state.
-  const reducer = (state, action) => {
+  const reducer = (state: StateType, action: { type: string; payload?: any }) => {
     switch (action.type) {
       case 'SET_STATE':
         const newState = { ...state, ...action.payload };
@@ -73,7 +80,7 @@ const Page: React.FC<PageProps> = ({ searchParams: { id } }) => {
   // If the item doesn't exist, return the default value
   // Try to parse the item as JSON
   // If parsing fails, return the item as a string
-  const getItem = (key, defaultValue) => {
+  const getItem = (key: string, defaultValue: any) => {
     if (typeof window === 'undefined') return defaultValue;
     const storedValue = localStorage.getItem(key);
     if (storedValue === null) return defaultValue;
@@ -103,8 +110,13 @@ const Page: React.FC<PageProps> = ({ searchParams: { id } }) => {
       });
     };
     fetchLesson();
-  }, [id]);
-
+  }, [
+    id,
+    CONTENT_LOCAL_STORAGE_ID,
+    NAME_LOCAL_STORAGE_ID,
+    QUESTIONS_LOCAL_STORAGE_ID,
+    SKILLS_LOCAL_STORAGE_ID
+  ]);
 
   const handleContentChange = (content: string) => {
     dispatch({ type: 'SET_STATE', payload: { content } });
@@ -126,16 +138,17 @@ const Page: React.FC<PageProps> = ({ searchParams: { id } }) => {
     if (
       selectedQuestion &&
       !state.questions.find(
-        (question: QuestionBriefInfo) =>
-          question.id === selectedQuestion.id
+        (question: QuestionBriefInfo) => question.id === selectedQuestion.id
       )
     ) {
-      const updatedQuestions = [...state.questions, {name: selectedQuestion.content, id: selectedQuestion.id}];
+      const updatedQuestions = [
+        ...state.questions,
+        { name: selectedQuestion.content, id: selectedQuestion.id }
+      ];
       dispatch({ type: 'SET_STATE', payload: { questions: updatedQuestions } });
       setSelectedQuestion(null);
     }
   };
-  
 
   // Remove a question from the list of questions
   const removeQuestion = (id: string) => {
@@ -153,15 +166,19 @@ const Page: React.FC<PageProps> = ({ searchParams: { id } }) => {
     // Get a list of just the question ids
     const updatedQuestions = state.questions.map(
       (question: QuestionBriefInfo) => question.id
-    )
+    );
     // Update the lesson
     try {
-      const updatedLesson = await updateLesson(id as string, {...state, question_ids: updatedQuestions});
+      const updatedLesson = await updateLesson(id as string, {
+        ...state,
+        question_ids: updatedQuestions
+      });
       dispatch({ type: 'SET_STATE', payload: updatedLesson });
       setFetchedLesson(updatedLesson);
       alert('Lesson updated successfully');
-    } catch (error) {
-      alert(error.message || 'An error occurred while updating the lesson');
+    } catch (error: unknown) {
+      const apiError = error as ApiError;
+      alert(apiError.message || 'An error occurred while updating the lesson');
     }
   };
 
@@ -173,7 +190,7 @@ const Page: React.FC<PageProps> = ({ searchParams: { id } }) => {
 
   // Render the component
   return (
-    <div className='m-1'>
+    <div className="m-1">
       <h3 className="text-2xl">Edit this lesson</h3>
       <InputText
         title="Lesson Title"

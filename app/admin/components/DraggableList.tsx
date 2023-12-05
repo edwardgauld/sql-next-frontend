@@ -3,12 +3,12 @@ import { Draggable, Droppable, DragDropContext } from '@hello-pangea/dnd';
 
 type Item = {
   id: string;
-  name: string;
+  name?: string;
 };
 
 interface DraggableListProps {
   items: Item[];
-  onDragEnd: (newOrder: Item[]) => void;
+  onDragEnd: (newOrder: any[]) => void;
   onRemove: (id: string) => void;
 }
 

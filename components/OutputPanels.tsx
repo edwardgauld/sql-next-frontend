@@ -18,7 +18,7 @@ const OutputTable: React.FC<OutputTableProps> = ({ output }) => {
     <table className="table-auto m-1 border-collapse border border-gray-300 dark:border-gray-700 text-sm">
       <thead className="bg-gray-100 dark:bg-gray-700">
         <tr key={generateKey()}>
-          {output_array[0].map((col) => {
+          {output_array[0].map((col: string) => {
             return (
               <th
                 key={generateKey()}
@@ -31,10 +31,10 @@ const OutputTable: React.FC<OutputTableProps> = ({ output }) => {
         </tr>
       </thead>
       <tbody>
-        {output_array.slice(1).map((row) => {
+        {output_array.slice(1).map((row: string[]) => {
           return (
             <tr key={generateKey()}>
-              {row.map((col) => {
+              {row.map((col: string) => {
                 return (
                   <td
                     key={generateKey()}
