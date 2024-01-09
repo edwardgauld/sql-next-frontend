@@ -79,7 +79,7 @@ export const getSubmissionResult = async (submission_id: string) => {
 /* Admin API */
 
 export const createQuestion = async (data: CreateQuestionType) => {
-  return fetchAPI(`/question/`, {
+  return fetchAPI(`/question`, {
     method: "POST",
     body: JSON.stringify(data),
   });
@@ -120,7 +120,7 @@ export const getAllModulesNamesIds = async () => {
 };
 
 export const createModule = async (data: CreateModuleType) => {
-  return fetchAPI(`/module/`, {
+  return fetchAPI(`/module`, {
     method: "POST",
     body: JSON.stringify(data),
   });
@@ -142,7 +142,7 @@ export const getAllLessons = async () => {
 }
 
 export const createLesson = async (data: CreateLessonType): Promise<LessonType> => {
-  return fetchAPI(`/lesson/`, {
+  return fetchAPI(`/lesson`, {
     method: "POST",
     body: JSON.stringify(data),
   });
