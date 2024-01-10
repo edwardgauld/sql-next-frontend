@@ -2,10 +2,10 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex-col">
-        <h1 className="text-4xl font-bold mb-4">
-          Welcome to the SQL learning centre!
+    <main className="flex min-h-screen flex-col items-center justify-center p-4 md:p-24 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+      <div className="z-10 w-full max-w-4xl mx-auto space-y-8">
+        <h1 className="text-4xl md:text-6xl font-extrabold text-center mb-8 text-blue-600 dark:text-blue-400">
+          Welcome to the SQL Learning Centre!
         </h1>
         <p className="mb-4">
           This is for you if you want to learn SQL. It starts from the very
@@ -89,16 +89,15 @@ export default function Home() {
           moving onto the next. They build on each other.
         </p>
         <p className="mb-4">Have fun learning!</p>
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-12">
           <Link
             href="/course/SQL%20Basics/1"
-            type="button"
-            className="inline-block bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600 transition-colors duration-200"
+            className="inline-flex items-center justify-center bg-blue-500 dark:bg-blue-600 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg shadow-lg hover:bg-blue-600 dark:hover:bg-blue-700 hover:scale-105 transition-transform duration-300 text-sm md:text-base"
           >
-            START NOW
+            <span className="font-semibold">Start Now</span>
           </Link>
         </div>
-        <p className="mt-8">Developed by Edward Gauld</p>
+        <p className="text-center mt-12 font-medium">Developed by Edward Gauld</p>
       </div>
     </main>
   );
